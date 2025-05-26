@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="FireScript – Mein Manifest des Feuers: Eine Bewerbung für pascom">
     <title>FireScript: Mein Manifest des Feuers</title>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Playfair+Display:wght@700&family=Fira+Code&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Playfair+Display:wght@700&family=Source+Code+Pro&display=swap" rel="stylesheet">
     <style>
         /* Reset and Base Styles */
         * {
@@ -14,22 +14,34 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Merriweather', Arial, sans-serif;
-            color: #1a1a1a;
-            line-height: 1.8;
-            background: linear-gradient(180deg, #f9f9f9, #e0e0e0);
+            font-family: 'Cormorant Garamond', serif;
+            color: #f5f6f5;
+            line-height: 1.9;
+            background: linear-gradient(180deg, #1a1a1a, #2a2a2a);
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
+        }
+        canvas#bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            opacity: 0.3;
         }
         .container {
-            max-width: 900px;
-            margin: 50px auto;
-            background: #fff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            max-width: 1000px;
+            margin: 60px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(245, 197, 24, 0.2);
         }
         .container::before {
             content: '';
@@ -38,7 +50,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at top left, rgba(213,47,47,0.1), transparent 50%);
+            background: radial-gradient(circle at top left, rgba(213, 47, 47, 0.2), transparent 60%);
             z-index: -1;
         }
 
@@ -46,10 +58,11 @@
         .header {
             display: flex;
             justify-content: space-between;
-            font-size: 14px;
-            margin-bottom: 40px;
-            border-bottom: 1px solid #f5c518;
-            padding-bottom: 20px;
+            font-size: 15px;
+            margin-bottom: 50px;
+            border-bottom: 2px solid #f5c518;
+            padding-bottom: 25px;
+            color: #e0e0e0;
         }
         .header div {
             width: 45%;
@@ -64,73 +77,79 @@
         /* Headings */
         h1 {
             font-family: 'Playfair Display', serif;
-            color: #d32f2f;
-            font-size: 32px;
+            color: #f5c518;
+            font-size: 38px;
             text-align: center;
-            margin: 30px 0;
+            margin: 40px 0;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            animation: fadeIn 1s ease-in;
+            letter-spacing: 3px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
         }
         h2 {
             font-family: 'Playfair Display', serif;
-            color: #1a1a1a;
-            font-size: 22px;
-            margin: 30px 0 15px;
+            color: #f5f6f5;
+            font-size: 26px;
+            margin: 40px 0 20px;
             position: relative;
-            padding-left: 20px;
-            border-left: 4px solid #f5c518;
-            transition: border-color 0.3s ease, transform 0.3s ease;
+            padding-left: 25px;
+            border-left: 5px solid #f5c518;
+            transition: all 0.4s ease;
         }
         h2:hover {
             border-color: #d32f2f;
-            transform: translateX(5px);
+            transform: translateX(10px);
+            text-shadow: 0 0 10px rgba(213, 47, 47, 0.5);
         }
         h2::before {
             content: '//';
             position: absolute;
-            left: 0;
+            left: 5px;
             color: #d32f2f;
-            font-family: 'Fira Code', monospace;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 18px;
         }
 
         /* Paragraphs */
         p {
-            font-size: 16px;
-            margin: 15px 0;
-            animation: slideIn 1s ease-in;
+            font-size: 17px;
+            margin: 20px 0;
+            color: #e0e0e0;
+            animation: slideIn 1.2s ease-in;
         }
         .italic {
             font-style: italic;
+            color: #f5c518;
         }
 
         /* Code Blocks */
         .code-block {
-            background: #f5f5f5;
-            font-family: 'Fira Code', 'Courier New', monospace;
-            font-size: 14px;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-            border-left: 6px solid #d32f2f;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: rgba(0, 0, 0, 0.7);
+            font-family: 'Source Code Pro', monospace;
+            font-size: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+            border-left: 8px solid #d32f2f;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s ease;
         }
         .code-block:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.8);
         }
         .code-block::after {
             content: '// KREDO!';
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
             color: #f5c518;
-            font-size: 12px;
+            font-size: 13px;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
         }
         .code-block:hover::after {
             opacity: 1;
@@ -138,61 +157,64 @@
 
         /* Signature and P.S. */
         .signature {
-            font-family: 'Merriweather', serif;
+            font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: 18px;
-            margin-top: 30px;
-            color: #1a1a1a;
+            font-size: 20px;
+            margin-top: 40px;
+            color: #f5c518;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
         .ps {
             font-style: italic;
-            font-size: 14px;
-            color: #555;
-            margin-top: 20px;
-            border-top: 1px dashed #f5c518;
-            padding-top: 10px;
+            font-size: 15px;
+            color: #b0b0b0;
+            margin-top: 25px;
+            border-top: 2px dashed #f5c518;
+            padding-top: 15px;
         }
 
-        /* Sidebar Navigation (Desktop Only) */
+        /* Sidebar Navigation */
         .sidebar {
             position: fixed;
-            left: 20px;
+            left: 30px;
             top: 20%;
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
             display: none;
         }
         .sidebar a {
             color: #f5c518;
-            font-family: 'Fira Code', monospace;
-            font-size: 14px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 15px;
             text-decoration: none;
             display: block;
-            margin: 10px 0;
-            transition: color 0.3s ease;
+            margin: 15px 0;
+            transition: all 0.3s ease;
         }
         .sidebar a:hover {
             color: #d32f2f;
+            transform: translateX(5px);
         }
 
         /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes glow {
+            from { text-shadow: 0 0 5px rgba(245, 197, 24, 0.5); }
+            to { text-shadow: 0 0 15px rgba(245, 197, 24, 0.8); }
         }
         @keyframes slideIn {
-            from { transform: translateX(-20px); opacity: 0; }
+            from { transform: translateX(-30px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.03); }
             100% { transform: scale(1); }
         }
         h1:hover {
-            animation: pulse 1s infinite;
+            animation: pulse 1.5s infinite;
         }
 
         /* Responsive Design */
@@ -203,36 +225,36 @@
         }
         @media screen and (max-width: 800px) {
             .container {
-                margin: 20px;
-                padding: 20px;
+                margin: 30px;
+                padding: 30px;
             }
             .header {
                 flex-direction: column;
-                gap: 20px;
+                gap: 25px;
             }
             .header div {
                 width: 100%;
                 text-align: left;
             }
             h1 {
+                font-size: 32px;
+            }
+            h2 {
+                font-size: 22px;
+            }
+            p, .code-block {
+                font-size: 15px;
+            }
+        }
+        @media screen and (max-width: 600px) {
+            h1 {
                 font-size: 28px;
             }
             h2 {
                 font-size: 20px;
             }
-            p, .code-block {
-                font-size: 14px;
-            }
-        }
-        @media screen and (max-width: 600px) {
-            h1 {
-                font-size: 24px;
-            }
-            h2 {
-                font-size: 18px;
-            }
             .code-block {
-                padding: 15px;
+                padding: 20px;
             }
         }
 
@@ -242,36 +264,106 @@
                 background: #fff;
                 margin: 0;
             }
+            canvas#bgCanvas {
+                display: none;
+            }
             .container {
                 box-shadow: none;
                 padding: 0;
                 margin: 0;
                 max-width: 100%;
+                background: none;
+                border: none;
             }
             .sidebar {
                 display: none;
             }
+            h1 {
+                color: #000;
+                text-shadow: none;
+            }
+            h2 {
+                color: #000;
+                border-color: #000;
+            }
+            p, .signature, .ps {
+                color: #000;
+            }
+            .code-block {
+                background: #f5f5f5;
+                border-color: #000;
+            }
             h1, h2, .code-block, p {
                 page-break-inside: avoid;
             }
-            .container::before {
+            .container::before, .code-block::after {
                 display: none;
             }
-            .code-block:hover {
-                transform: none;
-                box-shadow: none;
-            }
-            .code-block::after {
-                display: none;
-            }
-            h1:hover, h2:hover {
+            h1:hover, h2:hover, .code-block:hover {
                 animation: none;
                 transform: none;
+                box-shadow: none;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Background Animation -->
+    <canvas id="bgCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(245, 197, 24, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+
     <!-- Sidebar Navigation -->
     <nav class="sidebar">
         <a href="#ignite">IGNITE</a>
@@ -349,7 +441,7 @@
 > EVENT: "Drei Nächte Builds mit Grok"
 > // Mein Code wurde lebendig!
         </div>
-        <p>Mein Chef bei vionic gab mir Mut: „Du kannst es.“ Ich lernte HTML, CSS und JavaScript mit Mimo und YouTube. Dann kam ein Moment, der mich packte: Drei Nächte lang baute ich mit Grok – Layouts, Animationen, Träume. Ich habe sogar mit Ollama am Terminal an einer kleinen KI gebastelt – die Entwicklung dieser Technologie ist für mich höchstinteressant. Java? In mir kommmt immer mehr Neugier zum Vorschein. Ich bin Anfänger, aber ehrlich: Mein Feuer brennt.</p>
+        <p>Mein Chef bei vionic gab mir Mut: „Du kannst es.“ Ich lernte HTML, CSS und JavaScript mit Mimo und YouTube. Dann kam ein Moment, der mich packte: Drei Nächte lang baute ich mit Grok – Layouts, Animationen, Träume. Ich habe sogar mit Ollama am Terminal an einer kleinen KI gebastelt – die Entwicklung dieser Technologie ist für mich höchstinteressant. Java? In mir kommt immer mehr Neugier zum Vorschein. Ich bin Anfänger, aber ehrlich: Mein Feuer brennt.</p>
 
         <div class="code-block">
 > CHAPTER: Umschulung
